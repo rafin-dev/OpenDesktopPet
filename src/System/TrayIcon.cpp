@@ -1,6 +1,9 @@
 #include <ODPpch.h>
 #include "TrayIcon.h"
 
+#include "UserEvents.h"
+#include "System.h"
+
 namespace ODP {
 
 	TrayIcon::~TrayIcon()
@@ -8,10 +11,10 @@ namespace ODP {
 		destroy();
 	}
 
-	void callback_quit(void* userdata, SDL_TrayEntry* invoker)
+	static void send_event(uint32_t eventType)
 	{
 		SDL_Event e;
-		e.type = SDL_EVENT_QUIT;
+		e.type = eventType;
 		SDL_PushEvent(&e);
 	}
 
@@ -24,9 +27,14 @@ namespace ODP {
 		m_Menu = SDL_CreateTrayMenu(m_Tray);
 		if (!m_Menu) { destroy(); return false; }
 
+		m_OpenEditor = SDL_InsertTrayEntryAt(m_Menu, -1, "Open Editor", SDL_TRAYENTRY_BUTTON);
+		if (!m_OpenEditor) { destroy(); return false; }
+		SDL_SetTrayEntryCallback(m_OpenEditor, 
+			[](void*, SDL_TrayEntry*) { send_event(System::get_events_start() + UserEvent::Event_OpenEditor); }, nullptr);
+
 		m_QuitButton = SDL_InsertTrayEntryAt(m_Menu, -1, "Quit", SDL_TRAYENTRY_BUTTON);
 		if (!m_QuitButton) { destroy(); return false; }
-		SDL_SetTrayEntryCallback(m_QuitButton, callback_quit, nullptr);
+		SDL_SetTrayEntryCallback(m_QuitButton, [](void*, SDL_TrayEntry*) { send_event(SDL_EVENT_QUIT); }, nullptr);
 		
 		return true;
 	}

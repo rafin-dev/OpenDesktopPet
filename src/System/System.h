@@ -23,6 +23,8 @@ namespace ODP {
 		bool init();
 		void run();
 
+		static constexpr uint32_t get_events_start() { return s_UserEventsStart; }
+
 	private:
 		void quit();
 
@@ -30,7 +32,10 @@ namespace ODP {
 		Editor* m_Editor = nullptr;
 		TrayIcon* m_TrayIcon = nullptr;
 
-		bool m_ImGuiOn = false;
+		bool m_ImGuiInitialized = false;
+		bool m_ShouldQuit = false;
+
+		static uint32_t s_UserEventsStart;
 	};
 
 }

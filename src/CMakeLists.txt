@@ -29,8 +29,8 @@ add_executable(OpenDesktopPet
 	${IMGUI_DIR}/imgui_tables.cpp
 	${IMGUI_DIR}/imgui_widgets.cpp
 	${IMGUI_DIR}/backends/imgui_impl_sdl3.cpp
-	${IMGUI_DIR}/backends/imgui_impl_sdlrenderer3.cpp
-)
+	${IMGUI_DIR}/backends/imgui_impl_sdlgpu3.cpp
+ "System/UserEvents.h")
 
 set_property(TARGET OpenDesktopPet PROPERTY CXX_STANDARD 23)
 target_link_libraries(OpenDesktopPet PRIVATE SDL3::SDL3)

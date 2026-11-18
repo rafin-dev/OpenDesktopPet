@@ -21,7 +21,8 @@ namespace ODP {
 
 		SDL_Tray* m_Tray = nullptr;
 		SDL_TrayMenu* m_Menu = nullptr;
-		SDL_TrayEntry* m_QuitButton;
+		SDL_TrayEntry* m_OpenEditor = nullptr;
+		SDL_TrayEntry* m_QuitButton = nullptr;
 	};
 
 }

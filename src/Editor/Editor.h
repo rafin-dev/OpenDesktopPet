@@ -13,9 +13,14 @@ namespace ODP {
 
 		bool init();
 
+		void update();
+
 	private:
+		void quit();
+		bool m_ImguiInitialized = false;
+
 		SDL_Window* m_Window = nullptr;
-		SDL_Renderer* SDL_Renderer = nullptr;
+		SDL_GPUDevice* m_GpuDevice = nullptr;
 	};
 
 }
